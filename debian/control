@@ -1,0 +1,17 @@
+Source: slim-theme-minos-login
+Section: x11
+Priority: optional
+Maintainer: Javier P.L. <chilicuil@ubuntu.com>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.8.4
+Homepage: http://minos.io
+Vcs-Git: git://github.com/minos-org/slim-theme-minos-login-deb
+Vcs-Browser: https://github.com/minos-org/slim-theme-minos-login-deb
+
+Package: slim-theme-minos-login
+Architecture: all
+Depends: slim, ${misc:Depends}
+Description: slim theme login for Minos
+ Minos is a minimalist, fast, yet easy to use Linux based operating system.
+ .
+ This package contains a Minos theme for slim.

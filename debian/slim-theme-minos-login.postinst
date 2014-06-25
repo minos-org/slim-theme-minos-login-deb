@@ -1,0 +1,49 @@
+#!/bin/sh
+set -e
+
+_ensuresetting()
+{   #setting($1), configuration file($2)
+    [ -z "${1}" ] && return 1 || _ensuresetting_var_line="${1}"
+    [ -z "${2}" ] && return 1 || _ensuresetting_var_file="${2}"
+
+    [ ! -f "${_ensuresetting_var_file}" ] && return 1
+
+    _ensuresetting_var_regex="$(printf "%s" "${_ensuresetting_var_line}" | sed 's: :[ \\t]\\+:g')"
+    _ensuresetting_var_setting="$(printf "%s" "${_ensuresetting_var_line}" | cut -d' ' -f1)"
+
+    if grep "$(printf "^%s" "${_ensuresetting_var_setting}")" "${_ensuresetting_var_file}" >/dev/null; then
+        if ! grep "$(printf "^%s" "${_ensuresetting_var_regex}")" "${_ensuresetting_var_file}" >/dev/null; then
+            sed -i -e "/^${_ensuresetting_var_setting}/ s:.*:${_ensuresetting_var_line}:" "${_ensuresetting_var_file}"
+        fi
+    else
+        if grep "$(printf "^#%s[ \t]" "${_ensuresetting_var_setting}")" "${_ensuresetting_var_file}" >/dev/null; then
+            sed -i -e "/^#${_ensuresetting_var_setting}/ s:#.*:${_ensuresetting_var_line}:" "${_ensuresetting_var_file}"
+        else
+            sed -i -e "\$ a${_ensuresetting_var_line}" "${_ensuresetting_var_file}"
+        fi
+    fi
+}
+
+case "${1}" in
+    configure)
+        if [ -f /etc/slim.conf ]; then
+            sed -i "s:^current_theme:##current_theme:g"       /etc/slim.conf
+            sed -i '/minos-login/d'                       /etc/slim.conf
+            _ensuresetting "current_theme       minos-login" /etc/slim.conf
+        else
+            printf "%s\\n" "/etc/slim.conf was not found!, leaving slim-theme-minos-login unconfigured..."
+            exit 0
+        fi
+	;;
+
+    abort-upgrade|abort-deconfigure|abort-remove)
+	;;
+
+    *)
+	printf "%s\\n" "${0} called with unknown argument \`${1}'" 1>&2
+	exit 1
+	;;
+esac
+
+#DEBHELPER#
+exit 0

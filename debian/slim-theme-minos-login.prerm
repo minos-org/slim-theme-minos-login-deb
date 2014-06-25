@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+case "${1}" in
+	purge|remove)
+        if [ -f /etc/slim.conf ]; then
+            sed -i '/minos-login/d'                       /etc/slim.conf
+            sed -i '0,/^##current_theme/s//current_theme/' /etc/slim.conf
+        fi
+	;;
+
+    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+	;;
+
+    *)
+	printf "%s\\n" "${0} called with unknown argument \`${1}'" 1>&2
+	exit 1
+	;;
+esac
+
+#DEBHELPER#
+
+exit 0
