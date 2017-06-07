@@ -3,10 +3,10 @@ slim-theme-minos-login (1:201608161140+gitc4ae9f9-minos) precise; urgency=low
   * add trusty/xenial packages into lp recipe:
     https://code.launchpad.net/~minos-archive/+recipe/slim-theme-minos-login
 
- -- Javier P.L. <chilicuil@ubuntu.com>  Tue, 16 Aug 2016 11:40:07 -0500
+ -- Javier López <m@javier.io>  Tue, 16 Aug 2016 11:40:07 -0500
 
 slim-theme-minos-login (1:201406251007+gitc4ae9f9-minos) precise; urgency=low
 
   * New version
 
- -- Javier P.L. <chilicuil@ubuntu.com>  Sun, 20 Apr 2014 21:48:29 -0500
+ -- Javier López <m@javier.io>  Sun, 20 Apr 2014 21:48:29 -0500
